@@ -242,7 +242,7 @@ class Html2Pdf
         return array(
             'major'     => 5,
             'minor'     => 2,
-            'revision'  => 3
+            'revision'  => 1
         );
     }
 
@@ -1036,7 +1036,7 @@ class Html2Pdf
         if ($curr !== null && $sub->parsingHtml->code[$this->_parsePos]->getName() === 'write') {
             $txt = $sub->parsingHtml->code[$this->_parsePos]->getParam('txt');
             $txt = str_replace('[[page_cu]]', $sub->pdf->getMyNumPage($this->_page), $txt);
-            $sub->parsingHtml->code[$this->_parsePos]->setParam('txt', mb_substr($txt, $curr + 1, null, $this->_encoding));
+            $sub->parsingHtml->code[$this->_parsePos]->setParam('txt', substr($txt, $curr + 1));
         } else {
             $sub->_parsePos++;
         }
@@ -1181,8 +1181,8 @@ class Html2Pdf
      */
     protected function _listeArab2Rom($nbArabic)
     {
-        $nbBaseTen  = array('i','x','c','m');
-        $nbBaseFive = array('v','l','d');
+        $nbBaseTen  = array('I','X','C','M');
+        $nbBaseFive = array('V','L','D');
         $nbRoman    = '';
 
         if ($nbArabic<1) {
@@ -1505,13 +1505,7 @@ class Html2Pdf
     {
         // get the size of the image
         // WARNING : if URL, "allow_url_fopen" must turned to "on" in php.ini
-        if( strpos($src,'data:') === 0 ) {
-            $src = base64_decode( preg_replace('#^data:image/[^;]+;base64,#', '', $src) );
-            $infos = @getimagesizefromstring($src);
-            $src = "@{$src}";
-        } else {
-            $infos = @getimagesize($src);
-        }
+        $infos=@getimagesize($src);
 
         // if the image does not exist, or can not be loaded
         if (!is_array($infos) || count($infos)<2) {
@@ -1759,16 +1753,16 @@ class Html2Pdf
             $inBL[1]-= $border['b']['width'];
         }
 
-        if (!is_array($inTL) || $inTL[0]<=0 || $inTL[1]<=0) {
+        if ($inTL[0]<=0 || $inTL[1]<=0) {
             $inTL = null;
         }
-        if (!is_array($inTR) || $inTR[0]<=0 || $inTR[1]<=0) {
+        if ($inTR[0]<=0 || $inTR[1]<=0) {
             $inTR = null;
         }
-        if (!is_array($inBR) || $inBR[0]<=0 || $inBR[1]<=0) {
+        if ($inBR[0]<=0 || $inBR[1]<=0) {
             $inBR = null;
         }
-        if (!is_array($inBL) || $inBL[0]<=0 || $inBL[1]<=0) {
+        if ($inBL[0]<=0 || $inBL[1]<=0) {
             $inBL = null;
         }
 
@@ -2671,13 +2665,7 @@ class Html2Pdf
                 if ($background['img']) {
                     // get the size of the image
                     // WARNING : if URL, "allow_url_fopen" must turned to "on" in php.ini
-                    if( strpos($background['img'],'data:') === 0 ) {
-                        $src = base64_decode( preg_replace('#^data:image/[^;]+;base64,#', '', $background['img']) );
-                        $infos = @getimagesizefromstring($src);
-                        $background['img'] = "@{$src}";
-                    }else{
-                        $infos = @getimagesize($background['img']);
-                    }
+                    $infos=@getimagesize($background['img']);
                     if (is_array($infos) && count($infos)>1) {
                         $background['img'] = [
                             'file'   => $background['img'],

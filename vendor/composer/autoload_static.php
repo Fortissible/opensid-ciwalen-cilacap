@@ -11,8 +11,8 @@ class ComposerStaticInit644d767495344502331c4119dcffcbfa
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
-        'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
         '1f87db08236948d07391152dccb70f04' => __DIR__ . '/..' . '/google/apiclient-services/autoload.php',
+        'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
         'a8d3953fd9959404dd22d3dfcd0a79f0' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
     );
 
@@ -130,6 +130,16 @@ class ComposerStaticInit644d767495344502331c4119dcffcbfa
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'o' => 
+        array (
+            'org\\bovigo\\vfs' => 
+            array (
+                0 => __DIR__ . '/..' . '/mikey179/vfsstream/src/main/php',
+            ),
+        ),
+    );
+
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Datamatrix' => __DIR__ . '/..' . '/tecnickcom/tcpdf/include/barcodes/datamatrix.php',
@@ -178,6 +188,7 @@ class ComposerStaticInit644d767495344502331c4119dcffcbfa
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit644d767495344502331c4119dcffcbfa::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit644d767495344502331c4119dcffcbfa::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit644d767495344502331c4119dcffcbfa::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit644d767495344502331c4119dcffcbfa::$classMap;
 
         }, null, ClassLoader::class);
